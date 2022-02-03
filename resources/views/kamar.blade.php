@@ -1,0 +1,10 @@
+@extends('layouts.tamu', ['title'=>'Kamar'])
+
+@section('content')
+<x-form-pesan />
+<h1 class="text-center my-4">Kamar</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique consequat lectus id laoreet.
+    Ut id scelerisque nunc, ut pretium mi. Nam vitae ex quis nibh porta sollicitudin sit amet sed diam.
+    Cras venenatis justo lacus, non vestibulum purus ullamcorper ut. Donec nec porttitor nisi, ut condimentum lectus.
+    Sed volutpat enim felis, quis vestibulum nulla semper quis. Praesent eget mollis mauris.</p>
+@endsection
