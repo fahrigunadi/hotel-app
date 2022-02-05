@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kamar;
 use Illuminate\Http\Request;
+use App\Models\FasilitasKamar;
 
 class KamarController extends Controller
 {
@@ -74,9 +75,23 @@ class KamarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Kamar $kamar)
     {
-        return abort(404);
+        $fasilitas = FasilitasKamar::where('kamar_id', $kamar->id)->get();
+
+        if ($kamar->foto_kamar) {
+            $file = 'images/kamar/'.$kamar->foto_kamar;
+
+            if (file_exists($file)) {
+                $kamar->foto_kamar = url($file);
+            } else {
+                $kamar->foto_kamar = url('images/noimage.png');
+            }
+        } else {
+            $kamar->foto_kamar = url('images/noimage.png');
+        }
+
+        return view('kamar.show',['row'=>$kamar, 'fasilitas'=>$fasilitas]);
     }
 
     /**

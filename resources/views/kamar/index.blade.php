@@ -34,6 +34,10 @@
                 <td>Rp. {{ number_format($row->harga_kamar,2,',','.') }}</td>
                 <td>{{ $row->jum_kamar }}</td>
                 <td>
+                    <a href="{{ route('kamar.fasilitas.index',['kamar'=>$row->id]) }}" class="btn btn-xs btn-success">
+                        <i class="fas fa-tv"></i> Fasilitas
+                    </a>
+                    <x-btn-show :link="route('kamar.show',['kamar'=>$row->id])"/>
                     <x-btn-edit :link="route('kamar.edit',['kamar'=>$row->id])"/>
                     <x-btn-delete :link="route('kamar.destroy',['kamar'=>$row->id])"/>
                 </td>
