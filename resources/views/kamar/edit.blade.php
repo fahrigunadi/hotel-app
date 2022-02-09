@@ -1,7 +1,7 @@
 @extends('layouts.admin',['title'=>'Edit Kamar'])
 
 @section('content-header')
-    <h1 class="m-0"><i class="fas fa-bed"></i> Kamar</h1>
+    <h1 class="m-0"><a class="btn" onclick="history.back()"><i class="fas fa-arrow-left" style="font-size: 25px;"></i></a> <i class="fas fa-bed"></i> Kamar</h1>
 @endsection
 
 @section('content')

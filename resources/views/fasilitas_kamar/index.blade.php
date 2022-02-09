@@ -1,7 +1,7 @@
 @extends('layouts.admin',['title'=>'Fasilitas Kamar '.ucwords($kamar->nama_kamar)])
 
 @section('content-header')
-    <h1 class="m-0"><i class="fas fa-bed"></i> Fasilitas Kamar {{ ucwords($kamar->nama_kamar) }}</h1>
+    <h1 class="m-0"><a class="btn" onclick="history.back()"><i class="fas fa-arrow-left" style="font-size: 25px;"></i></a> <i class="fas fa-bed"></i> Fasilitas Kamar {{ ucwords($kamar->nama_kamar) }}</h1>
 @endsection
 
 @section('content')

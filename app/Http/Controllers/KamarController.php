@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Kamar;
 use Illuminate\Http\Request;
 use App\Models\FasilitasKamar;
+use App\Helper\ImageUrl;
+
 
 class KamarController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('can:role, "admin"', [
+            'except'=>['index', 'show']
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -79,17 +88,7 @@ class KamarController extends Controller
     {
         $fasilitas = FasilitasKamar::where('kamar_id', $kamar->id)->get();
 
-        if ($kamar->foto_kamar) {
-            $file = 'images/kamar/'.$kamar->foto_kamar;
-
-            if (file_exists($file)) {
-                $kamar->foto_kamar = url($file);
-            } else {
-                $kamar->foto_kamar = url('images/noimage.png');
-            }
-        } else {
-            $kamar->foto_kamar = url('images/noimage.png');
-        }
+        $kamar->foto_kamar = ImageUrl::get('images/kamar/', $kamar->foto_kamar);
 
         return view('kamar.show',['row'=>$kamar, 'fasilitas'=>$fasilitas]);
     }

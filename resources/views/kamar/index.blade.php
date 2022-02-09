@@ -5,12 +5,16 @@
 @endsection
 
 @section('content')
-<x-status/>
+@can('role', 'admin')
+    <x-status/>
+@endcan
 <div class="card">
     <div class="card-header">
         <div class="row">
             <div class="col">
-                <x-btn-create :link="route('kamar.create')" icon="fas fa-plus" />
+                @can('role', 'admin')
+                    <x-btn-create :link="route('kamar.create')" icon="fas fa-plus" />
+                @endcan
             </div>
             <div class="col">
                 <x-search />
@@ -34,12 +38,18 @@
                 <td>Rp. {{ number_format($row->harga_kamar,2,',','.') }}</td>
                 <td>{{ $row->jum_kamar }}</td>
                 <td>
+                    @can('role', 'admin')
                     <a href="{{ route('kamar.fasilitas.index',['kamar'=>$row->id]) }}" class="btn btn-xs btn-success">
                         <i class="fas fa-tv"></i> Fasilitas
                     </a>
+                    @endcan
+
                     <x-btn-show :link="route('kamar.show',['kamar'=>$row->id])"/>
-                    <x-btn-edit :link="route('kamar.edit',['kamar'=>$row->id])"/>
-                    <x-btn-delete :link="route('kamar.destroy',['kamar'=>$row->id])"/>
+
+                    @can('role', 'admin')
+                        <x-btn-edit :link="route('kamar.edit',['kamar'=>$row->id])"/>
+                        <x-btn-delete :link="route('kamar.destroy',['kamar'=>$row->id])"/>
+                    @endcan
                 </td>
             </tr>
             @endforeach
@@ -52,5 +62,7 @@
     <!-- ./card-body -->
 </div>
 @endsection
-<x-modal-delete/>
+@can('role', 'admin')
+    <x-modal-delete/>
+@endcan
 

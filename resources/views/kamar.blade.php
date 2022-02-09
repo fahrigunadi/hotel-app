@@ -3,8 +3,19 @@
 @section('content')
 <x-form-pesan />
 <h1 class="text-center my-4">Kamar</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique consequat lectus id laoreet.
-    Ut id scelerisque nunc, ut pretium mi. Nam vitae ex quis nibh porta sollicitudin sit amet sed diam.
-    Cras venenatis justo lacus, non vestibulum purus ullamcorper ut. Donec nec porttitor nisi, ut condimentum lectus.
-    Sed volutpat enim felis, quis vestibulum nulla semper quis. Praesent eget mollis mauris.</p>
+
+@foreach ($kamar as $item)
+<hr>
+<div class="row kamar mb-3">
+
+    <div class="col-md-4">
+        <img src="{{ $item->foto_kamar }}" class="img-fluid rounded img-thumbnail" />
+    </div>
+    <div class="col-md">
+        <h2><a href="{{ route('guest.kamar.show',['kamar'=>$item->id]) }}"> {{ $item->nama_kamar }} </a></h2>
+        <h5>Rp. {{ $item->harga_kamar }} <small>/ Malam.</small> </h5>
+        <p>{{ $item->deskripsi_kamar }}</p>
+    </div>
+</div>
+@endforeach
 @endsection

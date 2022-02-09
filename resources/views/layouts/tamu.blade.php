@@ -20,7 +20,7 @@
 @include('layouts.inc_tamu.navbar')
 
 <div class="container-fluid p-0">
-    <img src="images/banner.jpg" class="img img-fluid w-100">
+    <img src="{{ url('images/banner.jpg') }}" class="img img-fluid w-100">
 </div>
 
 <div class="container content">
