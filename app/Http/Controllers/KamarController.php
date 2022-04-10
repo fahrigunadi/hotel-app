@@ -25,7 +25,7 @@ class KamarController extends Controller
     public function index(Request $request)
     {
         $keyWord = $request->search;
-        $dataKamar = Kamar::select('id', 'nama_kamar', 'foto_kamar', 'jum_kamar', 'harga_kamar', 'deskripsi_kamar')
+        $dataKamar = Kamar::select('id', 'nama_kamar', 'foto_kamar', 'jum_kamar_kosong', 'jum_kamar_terisi', 'jum_kamar', 'harga_kamar', 'deskripsi_kamar')
         ->when($keyWord, function($query, $keyWord){
             return $query->where('nama_kamar', 'like', "%{$keyWord}%")
                         ->orWhere('harga_kamar', 'like', "%{$keyWord}%");
@@ -56,9 +56,9 @@ class KamarController extends Controller
     {
         $request->validate([
             'nama_kamar'=>'required',
-            'foto'=>'required|image|mimes:png,jpg,jpeg|dimensions:min_width=1000,min_height=500|between:50,4000',
-            'jumlah'=>'required',
-            'harga'=>'required',
+            'foto'=>'required|image|mimes:png,jpg,jpeg,avif|dimensions:min_width=200,min_height=100|between:10,4000',
+            'jumlah'=>'required|min:1',
+            'harga'=>'required|min:1',
             'deskripsi'=>'required|min:10',
         ]);
 
@@ -69,6 +69,7 @@ class KamarController extends Controller
             'nama_kamar'=>$request->nama_kamar,
             'foto_kamar'=>$filename,
             'jum_kamar'=>$request->jumlah,
+            'jum_kamar_kosong'=>$request->jumlah,
             'harga_kamar'=>$request->harga,
             'deskripsi_kamar'=>$request->deskripsi,
         ]);
@@ -115,9 +116,9 @@ class KamarController extends Controller
     {
         $request->validate([
             'nama_kamar'=>'required',
-            'foto'=>'nullable|image|mimes:png,jpg,jpeg|dimensions:min_width=1000,min_height=500|between:50,4000',
-            'jumlah'=>'required',
-            'harga'=>'required',
+            'foto'=>'nullable|image|mimes:png,jpg,jpeg,avif|dimensions:min_width=200,min_height=100|between:10,4000',
+            'jumlah'=>'required|min:1',
+            'harga'=>'required|min:1',
             'deskripsi'=>'required|min:10',
         ]);
 

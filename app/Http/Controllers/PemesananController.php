@@ -38,6 +38,7 @@ class PemesananController extends Controller
                 $row->status = $this->status($row->status);
             });
 
+
         return view('pemesanan.index', ['data'=>$dataPemesanan]);
     }
 
@@ -72,6 +73,43 @@ class PemesananController extends Controller
         $request->validate([
             'status' => 'required|in:pesan,checkin,checkout,batal'
         ]);
+
+        $kamar = Kamar::where('id', $pemesanan->kamar_id)->first();
+
+        if ($request->status == 'checkin' && $pemesanan->status == 'pesan'){
+            $kamar->update([
+                'jum_kamar_kosong' => $kamar->jum_kamar_kosong - $pemesanan->jum_kamar_dipesan,
+                'jum_kamar_terisi' => $kamar->jum_kamar_terisi + $pemesanan->jum_kamar_dipesan
+            ]);
+        }
+
+        if ($request->status == 'checkin' && $pemesanan->status == 'batal'){
+            $kamar->update([
+                'jum_kamar_kosong' => $kamar->jum_kamar_kosong - $pemesanan->jum_kamar_dipesan,
+                'jum_kamar_terisi' => $kamar->jum_kamar_terisi + $pemesanan->jum_kamar_dipesan
+            ]);
+        }
+
+        if ($request->status == 'checkout' && $pemesanan->status == 'checkin'){
+            $kamar->update([
+                'jum_kamar_kosong' => $kamar->jum_kamar_kosong + $pemesanan->jum_kamar_dipesan,
+                'jum_kamar_terisi' => $kamar->jum_kamar_terisi - $pemesanan->jum_kamar_dipesan
+            ]);
+        }
+
+        if ($request->status == 'pesan' && $pemesanan->status == 'checkin'){
+            $kamar->update([
+                'jum_kamar_kosong' => $kamar->jum_kamar_kosong + $pemesanan->jum_kamar_dipesan,
+                'jum_kamar_terisi' => $kamar->jum_kamar_terisi - $pemesanan->jum_kamar_dipesan
+            ]);
+        }
+
+        if ($request->status == 'batal' && $pemesanan->status == 'checkin'){
+            $kamar->update([
+                'jum_kamar_kosong' => $kamar->jum_kamar_kosong + $pemesanan->jum_kamar_dipesan,
+                'jum_kamar_terisi' => $kamar->jum_kamar_terisi - $pemesanan->jum_kamar_dipesan
+            ]);
+        }
 
         $pemesanan->update([
             'status' => $request->status

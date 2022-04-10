@@ -53,7 +53,7 @@ class FasilitasHotelController extends Controller
     {
         $request->validate([
             'nama_fasilitas'=>'required',
-            'foto'=>'required|image|mimes:png,jpg,jpeg|dimensions:min_width=1000,min_height=500|between:50,4000',
+            'foto'=>'required|image|mimes:png,jpg,jpeg|dimensions:min_width=200,min_height=100|between:20,4000',
             'deskripsi'=>'required|min:10',
         ]);
 
@@ -106,7 +106,7 @@ class FasilitasHotelController extends Controller
     {
         $request->validate([
             'nama_fasilitas'=>'required',
-            'foto'=>'nullable|image|mimes:png,jpg,jpeg|dimensions:min_width=1000,min_height=500|between:50,4000',
+            'foto'=>'nullable|image|mimes:png,jpg,jpeg|dimensions:min_width=200,min_height=100|between:20,4000',
             'deskripsi'=>'required|min:10',
         ]);
 

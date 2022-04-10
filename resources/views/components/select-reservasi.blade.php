@@ -5,7 +5,7 @@
 <div class="form-group row">
     <label for="" class="col-6 col-form-label text-right">{{ $label }}</label>
     <div class="col">
-        <select name="{{ $name }}"
+        <select name="{{ $name }}" id="{{ $name }}"
         class="form-control{{ $errors->has($name) ? ' is-invalid' : ''}}" name="{{ $name }}">
             <option value="">Pilih</option>
             @foreach ($dataOption as $row)

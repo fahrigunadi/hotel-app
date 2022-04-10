@@ -13,9 +13,11 @@ class KamarFactory extends Factory
      */
     public function definition()
     {
+        $jum = rand(5,10);
         return [
             'nama_kamar'=>$this->faker->word(),
-            'jum_kamar'=>rand(5,10),
+            'jum_kamar'=>$jum,
+            'jum_kamar_kosong'=>$jum,
             'harga_kamar'=>$this->faker->numberBetween(300000, 900000),
             'deskripsi_kamar'=>$this->faker->paragraph(),
         ];

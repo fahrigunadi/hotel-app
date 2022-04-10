@@ -24,7 +24,13 @@
     <x-card-table>
         <thead>
             <tr>
-                <th>No</th><th>Nama Kamar</th><th>Harga</th><th>Jumlah</th><th>Aksi</th>
+                <th>No</th>
+                <th>Nama Kamar</th>
+                <th>Harga</th>
+                <th>Kamar Kosong</th>
+                <th>Kamar Terisi</th>
+                <th>Jumlah Kamar</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +42,8 @@
                 <td>{{ $no++ }}</td>
                 <td>{{ ucwords($row->nama_kamar)  }}</td>
                 <td>Rp. {{ number_format($row->harga_kamar,2,',','.') }}</td>
+                <td>{{ $row->jum_kamar_kosong }}</td>
+                <td>{{ $row->jum_kamar_terisi }}</td>
                 <td>{{ $row->jum_kamar }}</td>
                 <td>
                     @can('role', 'admin')

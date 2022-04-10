@@ -57,6 +57,11 @@ class DashboardController extends Controller
             $data['data'][] = $row->jum_pemesanan;
         }
 
+        if (empty($data[0])) {
+            $data['label'][] = '';
+            $data['data'][] = '';
+        }
+
         return $data;
     }
 }

@@ -20,7 +20,7 @@
     </div>
     <div class="col-6 col-lg-3">
         <x-small-box label="Kamar" :value="$kamar->jum_kamar"
-        icon="fas fa-bed"
+        icon="fas fa-bed" 
         background="bg-indigo"
         :link="route('kamar.index')"/>
     </div>

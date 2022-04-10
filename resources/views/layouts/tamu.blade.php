@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>{{ isset($title) ? $title.' | '.config('app.name') : config('app.name') }}</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -29,7 +30,7 @@
 
 <footer class="footer">
     <div class="container">
-        <span class="text-muted"><strong>Copyright &copy; 2022 Aldhi Xar.</strong> All rights reserved.</span>
+        <span class="text-muted"><strong>Copyright &copy; 2022 Fahri Gunadi.</strong> All rights reserved.</span>
     </div>
 </footer>
 
@@ -39,5 +40,6 @@
 <script src="/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/template/dist/js/adminlte.min.js"></script>
+@stack('js')
 </body>
 </html>

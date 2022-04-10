@@ -74,24 +74,26 @@
     <!-- ./Regeister -->
 
     <table class="nota">
-      <thead>
+    <thead>
         <tr>
-          <th>No.</th>
-          <th>Tipe Kamar</th>
-          <th>JML</th>
-          <th>Harga Satuan</th>
-          <th>Total Harga</th>
+            <th>No.</th>
+            <th>Tipe Kamar</th>
+            <th>Jumlah</th>
+            <th>Total Malam</th>
+            <th>Harga Satuan</th>
+            <th>Total Harga</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr>
-          <td>1</td>
-          <td>{{ $kamar->nama_kamar }}</td>
-          <td>{{ $row->jum_kamar_dipesan }}</td>
-          <td>Rp. {{ $kamar->harga_kamar }}</td>
-          <td>Rp. {{ $row->total }}</td>
+            <td>1</td>
+            <td>{{ $kamar->nama_kamar }}</td>
+            <td>{{ $row->jum_kamar_dipesan }}</td>
+            <td>{{ $row->total_malam }}</td>
+            <td>Rp. {{ $kamar->harga_kamar }}</td>
+            <td>Rp. {{ $row->total }}</td>
         </tr>
-      </tbody>
+        </tbody>
     </table>
     <!-- ./Nota -->
     <p>

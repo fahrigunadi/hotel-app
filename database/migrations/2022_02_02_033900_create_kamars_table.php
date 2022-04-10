@@ -17,11 +17,12 @@ class CreateKamarsTable extends Migration
             $table->id();
             $table->string('nama_kamar');
             $table->string('foto_kamar')->nullable();
-            $table->string('jum_kamar');
+            $table->integer('jum_kamar');
+            $table->integer('jum_kamar_kosong')->default(0);
+            $table->integer('jum_kamar_terisi')->default(0);
             $table->integer('harga_kamar')->nullable();
             $table->text('deskripsi_kamar')->nullable();
 
-            // $table->timestamps();
         });
     }
 
