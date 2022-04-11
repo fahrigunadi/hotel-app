@@ -90,6 +90,13 @@ class PemesananController extends Controller
             ]);
         }
 
+        if ($request->status == 'checkin' && $pemesanan->status == 'checkout'){
+            $kamar->update([
+                'jum_kamar_kosong' => $kamar->jum_kamar_kosong - $pemesanan->jum_kamar_dipesan,
+                'jum_kamar_terisi' => $kamar->jum_kamar_terisi + $pemesanan->jum_kamar_dipesan
+            ]);
+        }
+
         if ($request->status == 'checkout' && $pemesanan->status == 'checkin'){
             $kamar->update([
                 'jum_kamar_kosong' => $kamar->jum_kamar_kosong + $pemesanan->jum_kamar_dipesan,

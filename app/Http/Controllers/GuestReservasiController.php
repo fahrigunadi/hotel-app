@@ -7,6 +7,8 @@ use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helper\Lamanya;
+use App\Mail\PaymentSuccess;
+use Illuminate\Support\Facades\Mail;
 
 class GuestReservasiController extends Controller
 {
@@ -76,6 +78,24 @@ class GuestReservasiController extends Controller
 
     public function show(Pemesanan $pemesanan)
     {
+        $pemesanan->nama_pemesan = ucwords($pemesanan->nama_pemesan);
+        $pemesanan->nama_tamu = ucwords($pemesanan->nama_tamu);
+        $pemesanan->total_malam = Lamanya::get($pemesanan->tgl_checkin, $pemesanan->tgl_checkout);
+        $pemesanan->tgl_checkin = date('l, d M Y', strtotime($pemesanan->tgl_checkin) );
+        $pemesanan->tgl_checkout = date('l, d M Y', strtotime($pemesanan->tgl_checkout) );
+
+        $kamar = Kamar::find($pemesanan->kamar_id);
+
+        $total = $kamar->harga_kamar * $pemesanan->jum_kamar_dipesan * $pemesanan->total_malam;
+        $pemesanan->total = number_format($total, 0,'.',',');
+
+        $kamar->nama_kamar = ucwords($kamar->nama_kamar);
+        $kamar->harga_kamar = number_format($kamar->harga_kamar,0,'.',',');
+
+        Mail::to($pemesanan->email_pemesan)->send(
+            new PaymentSuccess($pemesanan, $kamar)
+        );
+
         return view('reservasi-show', ['row'=>$pemesanan]);
     }
 
@@ -103,28 +123,33 @@ class GuestReservasiController extends Controller
     {
         if ($request->checkout && $request->checkin) {
 
-            $pemesanan = Pemesanan::select('id', 'kamar_id')
-            ->where('tgl_checkin', $request->checkin)
-            ->where('tgl_checkout', $request->checkout)
+            $pemesanan = Pemesanan::select('id', 'kamar_id', 'jum_kamar_dipesan')
+            ->whereBetween('tgl_checkin', [$request->checkin, $request->checkout])
             ->where('status', 'pesan')
-            ->orWhere('tgl_checkin', $request->checkin)
-            ->where('tgl_checkout', $request->checkout)
+            ->orWhereBetween('tgl_checkin', [$request->checkin, $request->checkout])
+            ->where('status', 'checkin')
+            ->orWhereBetween('tgl_checkout', [$request->checkin, $request->checkout])
+            ->where('status', 'pesan')
+            ->orWhereBetween('tgl_checkout', [$request->checkin, $request->checkout])
             ->where('status', 'checkin')
             ->get();
 
-            $kamar_id = [];
-            foreach ($pemesanan as $key => $value) {
-                $kamar_id[] = $value->kamar_id;
+            $kama = [];
+
+            foreach ($pemesanan as $item) {
+                if (empty($kama[$item->kamar_id])) {
+                    $kama[$item->kamar_id] = $item->jum_kamar_dipesan;
+                } else {
+                    $kama[$item->kamar_id] = $kama[$item->kamar_id] + $item->jum_kamar_dipesan;
+                }
             }
-            $kamar_id = array_count_values($kamar_id);
 
             $kamar = Kamar::all();
 
-            $kamar->map(function ($item) use ($kamar_id){
+            $kamar->map(function ($item) use ($kama){
                 $item->nama_kamar = ucwords($item->nama_kamar);
-                $item->name_tersedia = trim(ucwords($item->nama_kamar), "");
-                if (!empty($kamar_id[$item->id])) {
-                    $item->jum_kamar = $item->jum_kamar - $kamar_id[$item->id];
+                if (!empty($kama[$item->id])) {
+                    $item->jum_kamar = $item->jum_kamar - $kama[$item->id];
                 }
             });
         } else {
