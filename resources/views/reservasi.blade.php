@@ -7,8 +7,9 @@
         <form method="post" action="?" class="card card-primary">
             <div class="card-header py-1"></div>
             <div class="card-body">
+                <x-input-reservasi hidden="hidden" label="" name="lama_booking" :value="request()->lama_booking"/>
                 <div class="form-group row">
-                    <Label class="col-6 col-form-label text-right">Check IN</Label>
+                    <Label class="col-4 col-form-label text-right">Check IN</Label>
                     <div class="col">
                         <input id="checkin" value="{{ old('checkin') ? old('checkin') : request()->checkin }}" type="date" class="form-control {{ $errors->has('checkin') ? ' is-invalid' : ''}}" name="checkin">
                         @error('checkin')
@@ -17,7 +18,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <Label class="col-6 col-form-label text-right">Check OUT</Label>
+                    <Label class="col-4 col-form-label text-right">Check OUT</Label>
                     <div class="col">
                         <input id="checkout" value="{{ old('checkout') ? old('checkout') : request()->checkout }}" type="date" class="form-control {{ $errors->has('checkout') ? ' is-invalid' : ''}}" name="checkout">
                         @error('checkout')
@@ -79,6 +80,7 @@
                     } else {
                         kamar.append('<option value="'+valueOfElement.id+'">'+valueOfElement.nama_kamar+', tersedia : '+valueOfElement.jum_kamar+'</option>')
                     }
+                    $('#lama_booking').val(valueOfElement.lama_booking)
                     groupTersedia.append('<input type="text" name="tersedia_'+valueOfElement.id+'" hidden value="'+valueOfElement.jum_kamar+'">')
                 });
             }

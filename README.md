@@ -1,4 +1,4 @@
-#Rubah file **.env** di bagian MAIL
+# Rubah file **.env** di bagian MAIL
 
 ```php
 MAIL_MAILER=smtp
@@ -10,3 +10,8 @@ MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=teaccoc@gmail.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
+
+ Revisi Pertama [Revisi](https://github.com/FGunad/hotel-app/commit/de4a79b979cafb6ee525d4148efd91fbf1bb7be0)
+
+ 
+ Revisi Kedua [Revisi 2](https://github.com/FGunad/hotel-app/commit/985f5d6aca949fb44753640b3e7ab1bdadba25e1)

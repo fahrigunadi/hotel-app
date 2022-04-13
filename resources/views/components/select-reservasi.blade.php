@@ -3,7 +3,7 @@
     $value = old($name,$value);
 @endphp
 <div class="form-group row">
-    <label for="" class="col-6 col-form-label text-right">{{ $label }}</label>
+    <label for="" class="col-4 col-form-label text-right">{{ $label }}</label>
     <div class="col">
         <select name="{{ $name }}" id="{{ $name }}"
         class="form-control{{ $errors->has($name) ? ' is-invalid' : ''}}" name="{{ $name }}">

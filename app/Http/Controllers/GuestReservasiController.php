@@ -29,6 +29,7 @@ class GuestReservasiController extends Controller
 
     public function store(Request $request)
     {
+        // return $request->all();
         $before_today = date("Y-m-d",strtotime(today()." -1 day"));
 
         $request->validate([
@@ -54,7 +55,11 @@ class GuestReservasiController extends Controller
             'jumlah_kamar'=>"required|numeric|integer|min:1|max:{$jumlah_kamar}",
         ]);
 
-        // $lamaBooking = Lamanya::get($request->checkin, $request->checkout);
+        $request->validate([
+            'lama_booking'=>"required|integer|numeric|min:0|max:30",
+        ],[
+            'lama_booking.max'=>'Lama Booking maksimal 30 hari!'
+        ]);
 
         // if ($lamaBooking > 30) {
         //     return redirect()->back()->with('status', 'lamaKamarBerlebih');
@@ -146,11 +151,16 @@ class GuestReservasiController extends Controller
 
             $kamar = Kamar::all();
 
-            $kamar->map(function ($item) use ($kama){
+            $lamaBooking = Lamanya::get($request->checkin, $request->checkout);
+
+            $kamar->map(function ($item) use ($kama, $lamaBooking){
+                $item->lama_booking = $lamaBooking;
                 $item->nama_kamar = ucwords($item->nama_kamar);
                 if (!empty($kama[$item->id])) {
                     $item->jum_kamar = $item->jum_kamar - $kama[$item->id];
                 }
+
+                return $item;
             });
         } else {
             $kamar = Kamar::all();
