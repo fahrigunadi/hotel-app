@@ -57,8 +57,8 @@ class KamarController extends Controller
         $request->validate([
             'nama_kamar'=>'required',
             'foto'=>'required|image|mimes:png,jpg,jpeg,avif|dimensions:min_width=200,min_height=100|between:10,4000',
-            'jumlah'=>'required|min:1',
-            'harga'=>'required|min:1',
+            'jumlah'=>'required|numeric|min:1',
+            'harga'=>'required|numeric|min:1',
             'deskripsi'=>'required|min:10',
         ]);
 
@@ -117,8 +117,8 @@ class KamarController extends Controller
         $request->validate([
             'nama_kamar'=>'required',
             'foto'=>'nullable|image|mimes:png,jpg,jpeg,avif|dimensions:min_width=200,min_height=100|between:10,4000',
-            'jumlah'=>'required|min:1',
-            'harga'=>'required|min:1',
+            'jumlah'=>'required|numeric|min:1',
+            'harga'=>'required|numeric|min:1',
             'deskripsi'=>'required|min:10',
         ]);
 

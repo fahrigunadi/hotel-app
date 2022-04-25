@@ -58,12 +58,22 @@ class PemesananController extends Controller
         $pemesanan->value_status = $pemesanan->status;
         $pemesanan->status = $this->status($pemesanan->status);
 
-        $option = [
-            ['value'=>'pesan','option'=>'Permintaan'],
-            ['value'=>'checkin','option'=>'Check IN'],
-            ['value'=>'checkout','option'=>'Check OUT'],
-            ['value'=>'batal','option'=>'Cancel'],
-        ];
+        if ($pemesanan->value_status == 'pesan') {
+            $option = [
+                ['value'=>'checkin','option'=>'Check IN'],
+                ['value'=>'batal','option'=>'Cancel'],
+            ];
+        } else {
+            $option = [
+                ['value'=>'checkout','option'=>'Check OUT']
+            ];
+        }
+
+        if ($pemesanan->value_status == 'batal') {
+            $option = [
+                ['value'=>'batal','option'=>'Cancel'],
+            ];
+        }
 
         return view('pemesanan.show',['pemesanan'=>$pemesanan, 'kamar'=>$kamar, 'option'=>$option]);
     }
