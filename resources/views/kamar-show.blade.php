@@ -17,6 +17,10 @@
             </ul>
         </p>
         <p>{{ $row->deskripsi_kamar }}</p>
+        <form method="get" action="{{ route('guest.reservasi.create') }}" >
+            <input  value="{{ $row->id }}" name="kamar" hidden>
+            <button type="submit" class="btn btn-primary">Pesan Sekarang</button>
+        </form>
     </div>
 </div>
 @endsection

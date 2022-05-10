@@ -168,4 +168,39 @@ class GuestReservasiController extends Controller
 
         return $kamar;
     }
+
+    public function getHargaKamar(Request $request)
+    {
+        $kamar = Kamar::where('id', $request->kamar)->first();
+
+        // if ($request->checkin && $request->checkout && $request->kamar && $request->jumlah_kamar) {
+        //     $kamar->total_malam = Lamanya::get($request->checkin, $request->checkout);
+        //     $total = $kamar->harga_kamar * $request->jumlah_kamar;
+        //     if ($kamar->total_malam != '0') {
+        //         $total = $total * $kamar->total_malam;
+        //     }
+        //     $kamar->total_harga = number_format($total, 0, '.',',');
+        //     $kamar->harga_kamar = number_format($kamar->harga_kamar, 0, '.',',');
+        // }
+
+        if ($request->checkin && $request->checkout) {
+            $kamar->total_malam = Lamanya::get($request->checkin, $request->checkout);
+        }
+
+        if ($request->jumlah_kamar) {
+
+            $total = $kamar->harga_kamar * $request->jumlah_kamar;
+            if ($kamar->total_malam) {
+                $total = $total * $kamar->total_malam;
+            }
+            $kamar->total_harga = number_format($total, 0, '.',',');
+        }
+        $kamar->harga_kamar = number_format($kamar->harga_kamar, 0, '.',',');
+
+
+        return $kamar;
+
+
+
+    }
 }

@@ -15,6 +15,7 @@ Route::get('kamar/{kamar}','GuestKamarController@show')->name('guest.kamar.show'
 Route::get('reservasi','GuestReservasiController@create')->name('guest.reservasi.create');
 Route::post('reservasi','GuestReservasiController@store');
 Route::post('reservasi/kamar','GuestReservasiController@getKamar');
+Route::post('reservasi/harga-kamar','GuestReservasiController@getHargaKamar');
 Route::get('reservasi/{pemesanan}','GuestReservasiController@show')->name('guest.reservasi.show');
 Route::get('reservasi/{pemesanan}/invoice','GuestReservasiController@invoice')->name('guest.reservasi.invoice');
 
