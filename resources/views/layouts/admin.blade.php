@@ -61,7 +61,7 @@
       Version 1.0.1
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2022 <a href="https://fahrigunadi.com">Fahri Gunadi</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022 <a href="https://fahrigunadi.my.id">Fahri Gunadi</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
