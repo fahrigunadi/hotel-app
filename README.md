@@ -17,4 +17,4 @@ MAIL_FROM_NAME="${APP_NAME}"
 
  Revisi Ketiga [Booking max 30](https://github.com/FGunad/hotel-app/commit/a825dc4c7b19d1d588807999d290361ad9fb6f1b)
 
-demo : https://hotel.ciptacode.dev
+demo : https://hotel.fahrigunadi.dev
